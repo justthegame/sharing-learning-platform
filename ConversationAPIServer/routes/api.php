@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/keyword/insert', 'KeywordController@insertKeyword');
+Route::post('/keyword/edit', 'KeywordController@editKeyword');
+Route::post('/keyword/delete', 'KeywordController@deleteKeyword');
