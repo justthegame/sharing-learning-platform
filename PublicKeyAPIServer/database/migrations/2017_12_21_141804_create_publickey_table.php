@@ -14,7 +14,7 @@ class CreatePublickeyTable extends Migration {
     public function up() {
         Schema::create('publickey', function (Blueprint $table) {
             $table->string('user', 100);
-            $table->string('publicKey', 255);
+            $table->text('publicKey');
             $table->timestamps();
             $table->primary('user');
         });
