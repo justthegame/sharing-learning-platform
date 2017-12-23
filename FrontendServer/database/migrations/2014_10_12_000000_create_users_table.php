@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('name');
-            $table->string('privateKey');
-            $table->string('publicKey');
+            $table->text('privateKey');
+            $table->text('publicKey');
             $table->rememberToken();
             $table->timestamps();
         });
