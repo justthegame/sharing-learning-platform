@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-use App\Http\Resources\Publickey as PublickeyResource;
-use App\Publickey;
-
-Route::get('/getKey/{user}', function ($user) {
-    return new PublickeyResource(Publickey::where('user', $user)->first());
-});
-
-Route::get('key/{user}/{key}', 'PublickeyController@insert');
+//use App\Http\Resources\Publickey as PublickeyResource;
+//use App\Publickey;
+//
+//Route::get('/getKey/{user}', function ($user) {
+//    return new PublickeyResource(Publickey::where('user', $user)->first());
+//});
+//
+//Route::get('key/{user}/{key}', 'PublickeyController@insert');
