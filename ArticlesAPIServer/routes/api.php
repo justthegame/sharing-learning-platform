@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/article/insert', 'KeywordController@insertArticle');
-Route::post('/article/edit', 'KeywordController@editArticle');
-Route::post('/article/delete', 'KeywordController@deleteArticle');
-Route::post('/picture/delete', 'KeywordController@deletePicture');
+Route::get('/article', 'ArticleController@getArticle');
+Route::post('/article/insert', 'ArticleController@insertArticle');
+Route::post('/article/edit', 'ArticleController@editArticle');
+Route::post('/article/delete', 'ArticleController@deleteArticle');
+Route::post('/picture/insert', 'ArticleController@insertPicture');
+Route::post('/picture/delete', 'ArticleController@deletePicture');
