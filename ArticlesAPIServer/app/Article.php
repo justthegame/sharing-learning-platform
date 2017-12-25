@@ -12,4 +12,8 @@ class Article extends Model
 
   protected $table = 'articles';
   protected $primaryKey = 'id';
+
+  public function categories(){
+    return $this->belongsToMany('App\Category','articles_categories','article_id','category_id');
+  }
 }
