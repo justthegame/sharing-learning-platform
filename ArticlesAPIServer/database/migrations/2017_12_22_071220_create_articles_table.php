@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->text('content');
             $table->text('remark');
             $table->integer('user_record')->unsigned();
-            $table->integer('user_modified')->unsigned();
+            $table->integer('user_modified')->unsigned()->nullable();
             $table->timestamps();
         });
     }

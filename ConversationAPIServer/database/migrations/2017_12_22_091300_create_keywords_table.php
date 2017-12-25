@@ -18,7 +18,7 @@ class CreateKeywordsTable extends Migration
             $table->text('indonesian_text');
             $table->text('chinese_text');
             $table->string('voice_link');
-            $table->int('daily_usage_limit');
+            $table->integer('daily_usage_limit');
             $table->integer('user_record')->unsigned();
             $table->integer('user_modified')->unsigned();
             $table->text('remark');

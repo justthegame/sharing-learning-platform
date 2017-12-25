@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Article;
-use Picture;
+use App\Article;
+use App\Picture;
 
 class ArticleController extends Controller
 {
@@ -13,15 +13,21 @@ class ArticleController extends Controller
 		
 	}
 
+	public function getArticle()
+	{
+		$data = Article::all();
+		return $data->toJson();
+	}
+
 	public function insertArticle(Request $request)
 	{
 		$data = $request->all();
-		$keyword = new Article;
-		$keyword->title = $data['title'];
-		$keyword->content = $data['content'];
-		$keyword->remark = $data['remark'];
-		$keyword->user_record = $data['user'];
-		$keyword->save();
+		$article = new Article;
+		$article->title = $data['title'];
+		$article->content = $data['content'];
+		$article->remark = $data['remark'];
+		$article->user_record = $data['user'];
+		$article->save();
 		$json = array('success' => 'true');
     	return json_encode($json);
 	}
@@ -29,12 +35,12 @@ class ArticleController extends Controller
 	public function editArticle(Request $request)
 	{
 		$data = $request->all();
-		$keyword = Article::where('id', $data['id'])->first();
-		$keyword->title = $data['title'];
-		$keyword->content = $data['content'];
-		$keyword->remark = $data['remark'];
-		$keyword->user_modified = $data['user'];
-		$keyword->save();
+		$article = Article::where('id', $data['id'])->first();
+		$article->title = $data['title'];
+		$article->content = $data['content'];
+		$article->remark = $data['remark'];
+		$article->user_modified = $data['user'];
+		$article->save();
 		$json = array('success' => 'true');
     	return json_encode($json);
 	}	
@@ -42,16 +48,36 @@ class ArticleController extends Controller
 	public function deleteArticle(Request $request)
 	{
 		$data = $request->all();
-		$keyword = Article::where('id', $data['id'])->first();
-		$keyword->delete();
+		$article = Article::where('id', $data['id'])->first();
+		$article->delete();
 		$json = array('success' => 'true');
+		return json_encode($json);
+	}
+
+	public function insertPicture(Request $request)
+	{
+		if ($request->hasFile('image')) {
+			$data = $request->all();
+			$picture = new Picture;
+			$picture->link = $data['image']->move('uploads/'.$data['user'].'/'.$data['article_id'], $data['image']->getClientOriginalName());
+			$picture->remark = $data['remark'];
+			$picture->user_record = $data['user'];
+			$picture->article_id = $data['article_id'];
+			$picture->save();
+			$json = array('success' => 'true');
+			return json_encode($json);
+		}
+		$json = array('success' => 'false');
+		return json_encode($json);
+    	
 	}
 
 	public function deletePicture(Request $request)
 	{
 		$data = $request->all();
-		$keyword = Picture::where('id', $data['id'])->first();
-		$keyword->delete();
+		$picture = Picture::where('id', $data['id'])->first();
+		$picture->delete();
 		$json = array('success' => 'true');
+		return json_encode($json);
 	}
 }

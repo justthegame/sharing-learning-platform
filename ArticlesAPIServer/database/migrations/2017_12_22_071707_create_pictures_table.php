@@ -18,7 +18,7 @@ class CreatePicturesTable extends Migration
             $table->string('link');
             $table->string('remark');
             $table->integer('user_record')->unsigned();
-            $table->integer('user_modified')->unsigned();
+            $table->integer('user_modified')->unsigned()->nullable();
             $table->integer('article_id')->unsigned();
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->timestamps();
