@@ -17,9 +17,12 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content');
-            $table->text('remark');
+            $table->text('remark')->nullable();
             $table->integer('user_record')->unsigned();
             $table->integer('user_modified')->unsigned()->nullable();
+            $table->string('status');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

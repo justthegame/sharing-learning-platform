@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/article', 'ArticleController@getArticle');
+Route::get('/category', 'ArticleController@getCategory');
+Route::get('/article/id/{id}', 'ArticleController@getArticleById');
+Route::get('/article/category/{category}', 'ArticleController@getArticleByCategory');
 Route::post('/article/insert', 'ArticleController@insertArticle');
 Route::post('/article/edit', 'ArticleController@editArticle');
 Route::post('/article/delete', 'ArticleController@deleteArticle');

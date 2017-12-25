@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\Picture;
+use App\Category;
 
 class ArticleController extends Controller
 {
@@ -19,15 +20,44 @@ class ArticleController extends Controller
 		return $data->toJson();
 	}
 
+	public function getArticleById($id){
+		$data = Article::where('id',$id)->first();
+		return $data->toJson();
+	}
+
+	public function getArticleByCategory($category){
+		$data = Category::where('name',$category)->first();
+		return $data->articles->toJson();
+	}
+
+	public function getCategory(){
+		$data = Category::all();
+		return $data->toJson();
+	}
+
 	public function insertArticle(Request $request)
 	{
 		$data = $request->all();
 		$article = new Article;
 		$article->title = $data['title'];
 		$article->content = $data['content'];
-		$article->remark = $data['remark'];
 		$article->user_record = $data['user'];
+		if ($request->has('remark')) {
+			$article->remark = $data['remark'];
+		}
+		$article->status = "In Review";
+		$article->category_id = $data['category_id'];
 		$article->save();
+		if ($request->hasFile('images')) {
+			$images = $request->file('images');
+			foreach ($images as $image) {
+				$picture = new Picture;
+				$picture->link = $image->move('uploads/'.$data['user'].'/'.$article->id, uniqid().$image->getClientOriginalName());
+				$picture->user_record = $data['user'];
+				$picture->article_id = $article->id;
+				$picture->save();
+			}
+		}
 		$json = array('success' => 'true');
     	return json_encode($json);
 	}
@@ -38,8 +68,12 @@ class ArticleController extends Controller
 		$article = Article::where('id', $data['id'])->first();
 		$article->title = $data['title'];
 		$article->content = $data['content'];
-		$article->remark = $data['remark'];
+		if ($request->has('remark')) {
+			$article->remark = $data['remark'];
+		}
+		$article->category_id = $data['category_id'];
 		$article->user_modified = $data['user'];
+		$article->status = $data['status'];
 		$article->save();
 		$json = array('success' => 'true');
     	return json_encode($json);
@@ -49,7 +83,8 @@ class ArticleController extends Controller
 	{
 		$data = $request->all();
 		$article = Article::where('id', $data['id'])->first();
-		$article->delete();
+		$article->status = "Deleted";
+		$article->save();
 		$json = array('success' => 'true');
 		return json_encode($json);
 	}
@@ -59,8 +94,10 @@ class ArticleController extends Controller
 		if ($request->hasFile('image')) {
 			$data = $request->all();
 			$picture = new Picture;
-			$picture->link = $data['image']->move('uploads/'.$data['user'].'/'.$data['article_id'], $data['image']->getClientOriginalName());
-			$picture->remark = $data['remark'];
+			$picture->link = $data['image']->move('uploads/'.$data['user'].'/'.$data['article_id'], uniqid().$data['image']->getClientOriginalName());
+			if ($request->has('remark')) {
+				$picture->remark = $data['remark'];
+			}
 			$picture->user_record = $data['user'];
 			$picture->article_id = $data['article_id'];
 			$picture->save();
@@ -76,7 +113,8 @@ class ArticleController extends Controller
 	{
 		$data = $request->all();
 		$picture = Picture::where('id', $data['id'])->first();
-		$picture->delete();
+		$picture->status = "Deleted";
+		$picture->save();
 		$json = array('success' => 'true');
 		return json_encode($json);
 	}
