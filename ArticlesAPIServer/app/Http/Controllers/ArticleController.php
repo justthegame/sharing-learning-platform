@@ -30,6 +30,11 @@ class ArticleController extends Controller
 		return $data->articles->toJson();
 	}
 
+	public function getCategory(){
+		$data = Category::all();
+		return $data->toJson();
+	}
+
 	public function insertArticle(Request $request)
 	{
 		$data = $request->all();
@@ -40,8 +45,9 @@ class ArticleController extends Controller
 		if ($request->has('remark')) {
 			$article->remark = $data['remark'];
 		}
+		$article->status = "In Review";
+		$article->category_id = $data['category_id'];
 		$article->save();
-		$article->categories()->sync($data['categories']);
 		if ($request->hasFile('images')) {
 			$images = $request->file('images');
 			foreach ($images as $image) {
@@ -65,8 +71,9 @@ class ArticleController extends Controller
 		if ($request->has('remark')) {
 			$article->remark = $data['remark'];
 		}
-		$article->categories()->sync($data['categories']);
+		$article->category_id = $data['category_id'];
 		$article->user_modified = $data['user'];
+		$article->status = $data['status'];
 		$article->save();
 		$json = array('success' => 'true');
     	return json_encode($json);
@@ -76,7 +83,8 @@ class ArticleController extends Controller
 	{
 		$data = $request->all();
 		$article = Article::where('id', $data['id'])->first();
-		$article->delete();
+		$article->status = "Deleted";
+		$article->save();
 		$json = array('success' => 'true');
 		return json_encode($json);
 	}
@@ -105,7 +113,8 @@ class ArticleController extends Controller
 	{
 		$data = $request->all();
 		$picture = Picture::where('id', $data['id'])->first();
-		$picture->delete();
+		$picture->status = "Deleted";
+		$picture->save();
 		$json = array('success' => 'true');
 		return json_encode($json);
 	}

@@ -14,6 +14,6 @@ class Category extends Model
 	protected $primaryKey = 'id';
 
 	public function articles(){
-	  return $this->hasMany('App\Article', 'category_id', 'id');
+	  return $this->hasMany('App\Keyword', 'category_id', 'id');
 	}
 }

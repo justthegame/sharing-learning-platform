@@ -18,10 +18,12 @@ class CreateKeywordsTable extends Migration
             $table->text('indonesian_text');
             $table->text('chinese_text');
             $table->string('voice_link');
-            $table->integer('daily_usage_limit');
             $table->integer('user_record')->unsigned();
-            $table->integer('user_modified')->unsigned();
-            $table->text('remark');
+            $table->integer('user_modified')->unsigned()->nullable();
+            $table->text('remark')->nullable();
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->string('status');
             $table->timestamps();
         });
     }

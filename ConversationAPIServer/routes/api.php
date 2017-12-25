@@ -13,11 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/keyword', 'KeywordController@getKeyword');
+Route::get('/keyword/id/{id}', 'KeywordController@getKeywordById');
+Route::get('/keyword/category/{category}', 'KeywordController@getKeywordByCategory');
+Route::get('/category', 'KeywordController@getCategory');
 Route::post('/keyword/insert', 'KeywordController@insertKeyword');
 Route::post('/keyword/edit', 'KeywordController@editKeyword');
 Route::post('/keyword/delete', 'KeywordController@deleteKeyword');
