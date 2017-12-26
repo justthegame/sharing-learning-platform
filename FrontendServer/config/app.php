@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'publickeyServer' => 'http://localhost/sharing-learning-platform/PublicKeyAPIServer/public/api/',
+    'publickeyServer' => 'http://140.118.109.62/sharing-learning-platform/PublicKeyAPIServer/public/api/',
+    'articlesServer' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/api/',
+    'conversationServer' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/api/',
 
     /*
     |--------------------------------------------------------------------------
