@@ -326,7 +326,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="tech-news">
                             <div class="main-title-head">
                                 <h3>Recent     Articles</h3>
-                                <a href="singlepage.html">More  +</a>
+                                <!--<a href="singlepage.html">More  +</a>-->
                                 <div class="clearfix"></div>
                             </div>	
                             <div class="tech-news-grids">
@@ -353,7 +353,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="popular-news">
                             @yield("conversation-section")
 
-                            <a class="more" href="singlepage.html">More  +</a>
+                            <!--<a class="more" href="singlepage.html">More  +</a>-->
                         </div>
                     </div>
 
