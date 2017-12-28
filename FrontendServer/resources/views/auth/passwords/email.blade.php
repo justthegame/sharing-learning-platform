@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.all')
 
-@section('content')
+@section('main')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -33,7 +33,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn ">
                                     Send Password Reset Link
                                 </button>
                             </div>
