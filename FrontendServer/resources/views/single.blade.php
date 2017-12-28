@@ -21,7 +21,7 @@
                 <div class="singlepage">
                     @if (isset($article['pictures'][0]))
                     @foreach ($article['pictures'] as $image)
-                    <img src="http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/{{$image}}" alt="No Picture" style="max-height: 300px; object-fit: scale-down;">
+                    <img src="{{ config('app.articlesResource').$image['link']}}" alt="No Picture" style="max-height: 300px; object-fit: scale-down;">
                     @endforeach
                     @else
                     <img src="{{asset('../resources/lib/images/noimage.png')}}" alt="No Picture">

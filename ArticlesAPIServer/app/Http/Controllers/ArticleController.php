@@ -19,23 +19,10 @@ class ArticleController extends Controller {
     }
 
     public function getArticleWithPictures() {
-        $data = Article::orderBy("created_at", "desc")->get()->toArray();
+        $data = Article::orderBy("created_at", "desc")->get();
         foreach ($data as $key => $value) {
-            $pictures = Picture::where('article_id', $value['id'])->get()->toArray();
-            $data[$key]['pictures'] = array();
-            foreach ($pictures as $picture) {
-                $data[$key]['pictures'][] = $picture['link'];
-            }
-        }
-        return json_encode($data);
-    }
-
-    public function getArticleWithPicturesById($id) {
-        $data = Article::where('id', $id)->first()->toArray();
-        $pictures = Picture::where('article_id', $data['id'])->get()->toArray();
-        $data['pictures'] = array();
-        foreach ($pictures as $picture) {
-            $data['pictures'][] = $picture['link'];
+            $value->categories->toArray();
+            $data[$key]['pictures'] = Picture::where('article_id', $value['id'])->get();
         }
         return json_encode($data);
     }
@@ -45,11 +32,26 @@ class ArticleController extends Controller {
         return $data->toJson();
     }
 
+    public function getArticleWithPicturesById($id) {
+        $data = Article::where('id', $id)->first()->toArray();
+        $data['pictures'] = Picture::where('article_id', $data['id'])->get();
+        return json_encode($data);
+    }
+
     public function getArticleByUserID($id) {
         $data2 = Article::where('user_record', $id)->get();
         foreach ($data2 as $article) {
             $data[$article['id']]['article'] = Article::where('id', $article['id'])->first();
             $data[$article['id']]['images'] = Picture::where('article_id', $article['id'])->get();
+        }
+        return json_encode($data);
+    }
+
+    public function getArticleWithPicturesByUserID($id) {
+        $data = Article::where('user_record', $id)->get();
+        foreach ($data as $key => $value) {
+            $value->categories->toArray();
+            $data[$key]['pictures'] = Picture::where('article_id', $value['id'])->get();
         }
         return json_encode($data);
     }
@@ -63,11 +65,7 @@ class ArticleController extends Controller {
         $data2 = Category::where('name', $category)->first();
         $data = $data2->articles->toArray();
         foreach ($data as $key => $value) {
-            $pictures = Picture::where('article_id', $value['id'])->get()->toArray();
-            $data[$key]['pictures'] = array();
-            foreach ($pictures as $picture) {
-                $data[$key]['pictures'][] = $picture['link'];
-            }
+            $data[$key]['pictures'] = $pictures = Picture::where('article_id', $value['id'])->get();
         }
         return json_encode($data);
     }

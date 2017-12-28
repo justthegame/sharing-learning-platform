@@ -44,6 +44,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <li><a href="{{route('showArticle')}}">My Article
                                     </a></li> 
                                 |
+                                <li><a href="{{route('showConversation')}}">My Conversation
+                                    </a></li> 
+                                |
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

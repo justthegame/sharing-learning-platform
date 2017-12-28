@@ -9,11 +9,12 @@
 
 @section("article-section")
 @foreach ($articles as $article)
+@if($article)
 <div class="tech-news-grid span_66">
     <div style="width:20%;float:left; margin-right:20px">
         <a href="{{ route('single',['id'=>$article['id']]) }}">
             @if (isset($article['pictures'][0]))
-            <img style="max-width: 180px; object-fit: scale-down;" src="http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/{{$article['pictures'][0]}}" alt="No Picture">
+            <img style="max-width: 180px; object-fit: scale-down;" src="{{ config('app.articlesResource').$article['pictures'][0]['link']}}" alt="No Picture">
             @else
             <img style="max-width: 180px;" src="{{asset('../resources/lib/images/noimage.png')}}" alt="No Picture">
             @endif
@@ -27,6 +28,7 @@
     </div>
     <div class="clearfix"></div>	
 </div>
+@endif
 @endforeach
 @endsection
 
@@ -124,8 +126,8 @@
             @foreach($articlesSlider as $slider)
             <li>
                 <a href="{{ route('single',['id'=>$slider['id']]) }}">
-                    @if (isset($slider['pictures'][0]))
-                    <img style="height: 300px; object-fit: contain;" src="http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/{{$slider['pictures'][0]}}" alt="">
+                    @if (isset($slider['pictures'][0]['link']))
+                    <img style="height: 300px; object-fit: contain;" src="{{ config('app.articlesResource').$slider['pictures'][0]['link']}}" alt="">
                     @else
                     <img style="height: 300px;" src="{{asset('../resources/lib/images/noimage.png')}}" alt="">
                     @endif
@@ -137,8 +139,8 @@
         <ul id="slider3-pager">
 
             @foreach($articlesSlider as $slider)
-            @if (isset($slider['pictures'][0]))
-            <li><a href="#" id="slider_{{$slider['id']}}"><img src="http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/{{$slider['pictures'][0]}}" alt=""></a></li>
+            @if (isset($slider['pictures'][0]['link']))
+            <li><a href="#" id="slider_{{$slider['id']}}"><img src="{{ config('app.articlesResource').$slider['pictures'][0]['link']}}" alt=""></a></li>
             @else
             <li><a href="#" id="slider_{{$slider['id']}}"><img src="{{asset('../resources/lib/images/noimage.png')}}" alt=""></a></li>
             @endif
@@ -146,7 +148,7 @@
             @endforeach
         </ul>
         <div class="breaking-news-title">
-            <!--<p id='sliderTitle'>{{$articlesSlider[0]['title']}}</p>-->
+            <!--<p id='sliderTitle'>{{$articlesSlider[3]['title']}}</p>-->
             <h4><p>Breaking news</p></h4>
         </div>
     </div> 

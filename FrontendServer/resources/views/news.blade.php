@@ -7,6 +7,7 @@
         <div class="content">
             <div class="grids">
                 @foreach($articles as $article)
+                @if($article)
                 <div class="grid box">
                     <div class="grid-header">
                         <a class="gotosingle" href="{{ route('single',['id'=>$article['id']]) }}">{{ $article['title'] }}</a>
@@ -17,7 +18,7 @@
                     <div class="grid-img-content">
                         <a href="{{ route('single',['id'=>$article['id']]) }}">
                             @if (isset($article['pictures'][0]))
-                            <img style="max-width: 150px; object-fit: scale-down;" class="blog" src="http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/{{$article['pictures'][0]}}" alt="No Picture">
+                            <img style="max-width: 150px; object-fit: scale-down;" class="blog" src="{{ config('app.articlesResource').$article['pictures'][0]['link']}}" alt="No Picture">
                             @else
                             <img style="max-width: 150px; object-fit: scale-down;" class="blog" src="{{asset('../resources/lib/images/noimage.png')}}" alt="No Picture">
                             @endif
@@ -31,6 +32,7 @@
                         </ul>
                     </div>
                 </div>
+                @endif
                 @endforeach
                 <div class="clearfix"> </div>
             </div>
