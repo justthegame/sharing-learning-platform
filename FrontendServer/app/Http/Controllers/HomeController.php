@@ -61,6 +61,11 @@ class HomeController extends Controller {
         $result_json = curl_exec($cSession);
         $conversations = json_decode((string) $result_json, true);
         curl_close($cSession);
+        foreach ($conversations as $key => $conversation) {
+            if ($conversation['status'] == 'In Review') {
+                $conversations[$key] = array();
+            }
+        }
         return view('home', ['articles' => $articles, 'articlesSlider' => $articlesSlider, 'conversations' => $conversations]);
     }
 

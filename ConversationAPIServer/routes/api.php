@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/keyword', 'KeywordController@getKeyword');
+Route::get('/keyword/userid/{id}', 'KeywordController@getKeywordByUserId');
 Route::get('/keyword/id/{id}', 'KeywordController@getKeywordById');
 Route::get('/keyword/category/{category}', 'KeywordController@getKeywordByCategory');
 Route::get('/category', 'KeywordController@getCategory');

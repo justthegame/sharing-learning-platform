@@ -26,6 +26,12 @@ class KeywordController extends Controller
 		return $data->toJson();
 	}
 
+	public function getKeywordByUserId($id)
+	{
+		$data = Keyword::where('user_record',$id)->get();
+		return $data->toJson();
+	}
+
 	public function getKeywordByCategory($category)
 	{
 		$data = Category::where('name',$category)->first();
