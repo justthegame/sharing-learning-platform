@@ -33,12 +33,16 @@
 @endsection
 
 @section("conversation-section")
+@if($conversations)
 @foreach ($conversations as $conversation)
+@if($conversation)
 <div class="popular-grid">
     <i style="font-size:16pt">{{$conversation['chinese_text']}}</i>
     <p>{{$conversation['indonesian_text']}}</p>
 </div>
+@endif
 @endforeach
+@endif
 @endsection
 
 @section("register-form")

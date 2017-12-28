@@ -48,10 +48,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </a></li> 
                                 |
                                 <li>
+                                    {{ Auth::user()->name }}
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();">
-                                        Logout
+                                        (Logout)
                                     </a>
                                 </li>
 
