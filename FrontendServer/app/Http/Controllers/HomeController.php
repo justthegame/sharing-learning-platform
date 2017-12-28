@@ -32,17 +32,21 @@ class HomeController extends Controller {
 
         $result_json = curl_exec($cSession);
         $articles = json_decode((string) $result_json, true);
+        $i = 3;
         foreach ($articles as $key => $article) {
-            $user = User::find($article['user_record']);
-            $articles[$key]['user_name'] = $user['name'];
+            if ($article['status'] == 'In Review') {
+                $articles[$key] = array();
+            } else {
+                $user = User::find($article['user_record']);
+                $articles[$key]['user_name'] = $user['name'];
 
-            $content = $article['content'];
-            if (strlen($content) > 50) {
-                $articles[$key]['content'] = substr($content, 0, strpos($content, ' ', 300)) . '...';
+                $content = $article['content'];
+                if (strlen($content) > 50) {
+                    $articles[$key]['content'] = substr($content, 0, strpos($content, ' ', 300)) . '...';
+                }
+                $articlesSlider[$i] = $articles[$key];
+                $i--;
             }
-        }
-        for ($i = 0; $i < 4; $i++) {
-            $articlesSlider[$i] = $articles[$i];
         }
 
         //dd($articles);
@@ -70,15 +74,15 @@ class HomeController extends Controller {
         $result_json = curl_exec($cSession);
         $article = json_decode((string) $result_json, true);
         curl_close($cSession);
-        
+
         $user = User::find($article['user_record']);
         $article['user_name'] = $user['name'];
-        
+
         return view('single', ['article' => $article]);
     }
 
     public function news($category) {
-        $url = config('app.articlesServer') . 'articleWithPicture/category/'.$category;
+        $url = config('app.articlesServer') . 'articleWithPicture/category/' . $category;
         $cSession = curl_init();
         curl_setopt($cSession, CURLOPT_URL, $url);
         curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
@@ -87,12 +91,16 @@ class HomeController extends Controller {
         $result_json = curl_exec($cSession);
         $articles = json_decode((string) $result_json, true);
         foreach ($articles as $key => $article) {
-            $user = User::find($article['user_record']);
-            $articles[$key]['user_name'] = $user['name'];
+            if ($article['status'] == 'In Review') {
+                $articles[$key] = array();
+            } else {
+                $user = User::find($article['user_record']);
+                $articles[$key]['user_name'] = $user['name'];
 
-            $content = $article['content'];
-            if (strlen($content) > 50) {
-                $articles[$key]['content'] = substr($content, 0, strpos($content, ' ', 300)) . '...';
+                $content = $article['content'];
+                if (strlen($content) > 50) {
+                    $articles[$key]['content'] = substr($content, 0, strpos($content, ' ', 300)) . '...';
+                }
             }
         }
         curl_close($cSession);

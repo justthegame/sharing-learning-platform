@@ -14,6 +14,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Category</th>
                 <th scope="col">Content</th>
+                <th scope="col">Status</th>
                 <th scope="col">Images</th>
                 <th scope="col">Action</th>
             </tr>
@@ -21,20 +22,30 @@
         <tbody>
             @foreach($articles as $article)
             <tr>
-                <th scope="row">{{$article['article']['id']}}</th>
-                <td>{{$article['article']['title']}}</td>
-                <td>{{$article['article']['category_id']}}</td>
-                <td>{{$article['article']['content']}}</td>
-                @foreach($article['images'] as $img)
-                <td><img src='http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/{{$img['link']}}' width='50' height="50">
-                    <button type="button" data-id="{{$img['id']}}" onclick="deleteImage(this)"><i class="fa fa-trash-o"></i></button></td>
-                @endforeach
+                <th scope="row">{{$article['id']}}</th>
+                <td>{{$article['title']}}</td>
+                <td>{{$article['categories']['name']}}</td>
+                <td>{{$article['content']}}</td>
+                <td>{{$article['status']}}</td>
                 <td>
-                    <button type="button" data-id="{{$article['article']['id']}}" data-title="{{$article['article']['title']}}"
-                            data-category="{{$article['article']['category_id']}}" data-content="{{$article['article']['content']}}" 
-                            data-status="{{$article['article']['status']}}" onclick="editArticle(this)">
+                @foreach($article['pictures'] as $img)
+                <img src="{{ config('app.articlesResource').$img['link']}}" width='50' height="50">
+                    <button type="button" data-id="{{$img['id']}}" onclick="deleteImage(this)"><i class="fa fa-trash-o"></i></button>
+                @endforeach
+                </td>
+                <td>
+                    <button type="button" data-id="{{$article['id']}}" data-title="{{$article['title']}}"
+                            data-category="{{$article['category_id']}}" data-content="{{$article['content']}}" 
+                            data-status="{{$article['status']}}" onclick="editArticle(this)">
                         <span class="fa fa-edit"></span>
                     </button>
+                    @if(Auth::user()->is_admin)
+                    <button type="button" data-id="{{$article['id']}}" data-title="{{$article['title']}}"
+                            data-category="{{$article['category_id']}}" data-content="{{$article['content']}}" 
+                            data-status="Approved" onclick="editArticle(this)">
+                        <span class="fa fa-check"></span>
+                    </button>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -60,7 +71,7 @@
                 <label for="">Category</label>
                 <select class="form-control" name='category_id' id='txtCategory'>
                     @foreach($categories as $cat)
-                    <option value='{{$cat['id']}}'>{{$cat['name']}}</option>
+                    <option value="{{$cat['id']}}">{{$cat['name']}}</option>
                     @endforeach
                 </select>
             </div>
@@ -133,7 +144,7 @@
                     has_new_img = true;
             }
             $('#formArticleInsert').submit();
-        })
+        });
         jQuery('#formArticleInsert').submit(function (e) {
             e.preventDefault();
             var fd = new FormData(jQuery(this)[0]);

@@ -5,6 +5,8 @@ return [
     'articlesServer' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/api/',
     'conversationServer' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/api/',
 
+    'articlesResource' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/',
+    'conversationResource' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/',
     /*
     |--------------------------------------------------------------------------
     | Application Name

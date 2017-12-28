@@ -19,6 +19,7 @@ Route::get('/category', 'ArticleController@getCategory');
 Route::get('/article/id/{id}', 'ArticleController@getArticleById');
 Route::get('/articleWithPictures/id/{id}', 'ArticleController@getArticleWithPicturesById');
 Route::get('/article/userid/{id}', 'ArticleController@getArticleByUserID');
+Route::get('/articleWithPictures/userid/{id}', 'ArticleController@getArticleWithPicturesByUserID');
 Route::get('/article/category/{category}', 'ArticleController@getArticleByCategory');
 Route::get('/articleWithPicture/category/{category}', 'ArticleController@getArticleWithPicturesByCategory');
 Route::post('/article/insert', 'ArticleController@insertArticle');

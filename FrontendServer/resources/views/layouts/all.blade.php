@@ -44,11 +44,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <li><a href="{{route('showArticle')}}">My Article
                                     </a></li> 
                                 |
+                                <li><a href="{{route('showConversation')}}">My Conversation
+                                    </a></li> 
+                                |
                                 <li>
+                                    {{ Auth::user()->name }}
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();">
-                                        Logout
+                                        (Logout)
                                     </a>
                                 </li>
 
