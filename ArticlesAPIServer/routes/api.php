@@ -14,10 +14,13 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/article', 'ArticleController@getArticle');
+Route::get('/articleWithPictures', 'ArticleController@getArticleWithPictures');
 Route::get('/category', 'ArticleController@getCategory');
 Route::get('/article/id/{id}', 'ArticleController@getArticleById');
+Route::get('/articleWithPictures/id/{id}', 'ArticleController@getArticleWithPicturesById');
 Route::get('/article/userid/{id}', 'ArticleController@getArticleByUserID');
 Route::get('/article/category/{category}', 'ArticleController@getArticleByCategory');
+Route::get('/articleWithPicture/category/{category}', 'ArticleController@getArticleWithPicturesByCategory');
 Route::post('/article/insert', 'ArticleController@insertArticle');
 Route::post('/article/edit', 'ArticleController@editArticle');
 Route::post('/article/delete', 'ArticleController@deleteArticle');

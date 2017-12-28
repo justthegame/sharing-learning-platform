@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
@@ -14,7 +15,7 @@ class HomeController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -23,7 +24,7 @@ class HomeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $url = config('app.articlesServer') . 'article';
+        $url = config('app.articlesServer') . 'articleWithPictures';
         $cSession = curl_init();
         curl_setopt($cSession, CURLOPT_URL, $url);
         curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
@@ -31,6 +32,20 @@ class HomeController extends Controller {
 
         $result_json = curl_exec($cSession);
         $articles = json_decode((string) $result_json, true);
+        foreach ($articles as $key => $article) {
+            $user = User::find($article['user_record']);
+            $articles[$key]['user_name'] = $user['name'];
+
+            $content = $article['content'];
+            if (strlen($content) > 50) {
+                $articles[$key]['content'] = substr($content, 0, strpos($content, ' ', 300)) . '...';
+            }
+        }
+        for ($i = 0; $i < 4; $i++) {
+            $articlesSlider[$i] = $articles[$i];
+        }
+
+        //dd($articles);
         curl_close($cSession);
 
         $url = config('app.conversationServer') . 'keyword';
@@ -42,10 +57,49 @@ class HomeController extends Controller {
         $result_json = curl_exec($cSession);
         $conversations = json_decode((string) $result_json, true);
         curl_close($cSession);
-        return view('home', ['articles' => $articles, 'conversations' => $conversations]);
+        return view('home', ['articles' => $articles, 'articlesSlider' => $articlesSlider, 'conversations' => $conversations]);
     }
-    
-    public function showArticle(){
+
+    public function single($id) {
+        $url = config('app.articlesServer') . 'articleWithPictures/id/' . $id;
+        $cSession = curl_init();
+        curl_setopt($cSession, CURLOPT_URL, $url);
+        curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cSession, CURLOPT_HEADER, false);
+
+        $result_json = curl_exec($cSession);
+        $article = json_decode((string) $result_json, true);
+        curl_close($cSession);
+        
+        $user = User::find($article['user_record']);
+        $article['user_name'] = $user['name'];
+        
+        return view('single', ['article' => $article]);
+    }
+
+    public function news($category) {
+        $url = config('app.articlesServer') . 'articleWithPicture/category/'.$category;
+        $cSession = curl_init();
+        curl_setopt($cSession, CURLOPT_URL, $url);
+        curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cSession, CURLOPT_HEADER, false);
+
+        $result_json = curl_exec($cSession);
+        $articles = json_decode((string) $result_json, true);
+        foreach ($articles as $key => $article) {
+            $user = User::find($article['user_record']);
+            $articles[$key]['user_name'] = $user['name'];
+
+            $content = $article['content'];
+            if (strlen($content) > 50) {
+                $articles[$key]['content'] = substr($content, 0, strpos($content, ' ', 300)) . '...';
+            }
+        }
+        curl_close($cSession);
+        return view('news', ['articles' => $articles]);
+    }
+
+    public function showArticle() {
         $url = config('app.articlesServer') . 'category';
         $cSession = curl_init();
         curl_setopt($cSession, CURLOPT_URL, $url);
@@ -55,8 +109,8 @@ class HomeController extends Controller {
         $result_json = curl_exec($cSession);
         $categories = json_decode((string) $result_json, true);
         curl_close($cSession);
-        
-        $url = config('app.articlesServer') . 'article/userid/'.Auth::id();
+
+        $url = config('app.articlesServer') . 'article/userid/' . Auth::id();
         $cSession = curl_init();
         curl_setopt($cSession, CURLOPT_URL, $url);
         curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
@@ -64,8 +118,8 @@ class HomeController extends Controller {
 
         $result_json = curl_exec($cSession);
         $articles = json_decode((string) $result_json, true);
-        curl_close($cSession); 
-        return view('article',['categories' => $categories, 'articles' => $articles]);
+        curl_close($cSession);
+        return view('article', ['categories' => $categories, 'articles' => $articles]);
     }
 
     public function index2(Request $request) {

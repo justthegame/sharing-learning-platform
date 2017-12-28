@@ -56,7 +56,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     {{ csrf_field() }}
                                 </form>
                                 @else
-                                <li><a id="modal_trigger" href="#modal" class="btn1">Login / Register</a>
+                                <li>
+                                    <a id="modal_trigger" href="#modal" class="btn1">Login / Register</a>
 
                                     <div id="modal" class="popupContainer" style="display:none;">
                                         <header class="popupHeader">
@@ -218,7 +219,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </div>
 
                                     <script type="text/javascript">
-                                                $("#modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+                                        $("#modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
                                         $(function () {
                                         // Calling Login Form
                                         $("#login_form").click(function () {
@@ -251,7 +252,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         return false;
                                         });
                                         })
-                                    </script></li>
+                                    </script>
+                                </li>
                                 @endif
                             </ul>
                         </div>
@@ -315,50 +317,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </script>
                 <!-- script for menu -->
                 <div class="clearfix"></div>
-                <div class="main-content">
-                    <div class="col-md-9 total-news">
-                        @yield("slider-content")
-
-                        <div class="tech-news">
-                            <div class="main-title-head">
-                                <h3>Recent     Articles</h3>
-                                <a href="singlepage.html">More  +</a>
-                                <div class="clearfix"></div>
-                            </div>	
-                            <div class="tech-news-grids">
-                                @yield("article-section")
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>	
-                    </div>
-                </div>
-                <div class="col-md-3 side-bar">
-                    <!--<div class="sign_up text-center">
-                        <h3>Sign  Up  for  Join  Our  Community</h3>
-                        <p class="sign">Sign up to create articles and conversations!</p>
-                        @yield("register-form")
-                    </div>
-                    <div class="clearfix"></div>-->
-                    <div class="popular">
-                        <div class="main-title-head">
-                            <h5>Daily Conversation</h5>
-                            <h4> Most    recent</h4>
-                            <div class="clearfix"></div>
-                        </div>		
-                        <div class="popular-news">
-                            @yield("conversation-section")
-
-                            <a class="more" href="singlepage.html">More  +</a>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                </div>	
+                @yield("main");
                 <div class="clearfix"></div>
                 <div class="footer text-center">
                     <div class="bottom-menu">
-                        <ul>                 
+                        <ul>
                             |
                             @foreach($categoriesForHeader as $category)
                             <li><a href="{{ route('news', ['category' => $category['name']]) }}">{{$category['name']}}</a></li> |
@@ -371,6 +334,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
         </div>
-    </div>
-</body>
+        @yield("js-content");
+    </body>
 </html>

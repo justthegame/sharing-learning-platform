@@ -11,12 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
-Route::any('/home', 'HomeController@index')->name('home');
-Route::any('/home2', 'HomeController@index2')->name('home2');
-Route::any('/showArticle', 'HomeController@showArticle')->name('showArticle');
+Route::any('/', 'HomeController@index')->name('home');
+Route::any('/single/{id}', 'HomeController@single')->name('single');
+Route::any('/news/{category}', 'HomeController@news')->name('news');
+//Route::any('/home2', 'HomeController@index2')->name('home2');
+Route::any('/showArticle', 'ArticleController@showArticle')->name('showArticle');

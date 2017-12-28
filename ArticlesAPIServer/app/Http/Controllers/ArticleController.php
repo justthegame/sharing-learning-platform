@@ -18,6 +18,28 @@ class ArticleController extends Controller {
         return $data->toJson();
     }
 
+    public function getArticleWithPictures() {
+        $data = Article::orderBy("created_at", "desc")->get()->toArray();
+        foreach ($data as $key => $value) {
+            $pictures = Picture::where('article_id', $value['id'])->get()->toArray();
+            $data[$key]['pictures'] = array();
+            foreach ($pictures as $picture) {
+                $data[$key]['pictures'][] = $picture['link'];
+            }
+        }
+        return json_encode($data);
+    }
+
+    public function getArticleWithPicturesById($id) {
+        $data = Article::where('id', $id)->first()->toArray();
+        $pictures = Picture::where('article_id', $data['id'])->get()->toArray();
+        $data['pictures'] = array();
+        foreach ($pictures as $picture) {
+            $data['pictures'][] = $picture['link'];
+        }
+        return json_encode($data);
+    }
+
     public function getArticleById($id) {
         $data = Article::where('id', $id)->first();
         return $data->toJson();
@@ -35,6 +57,19 @@ class ArticleController extends Controller {
     public function getArticleByCategory($category) {
         $data = Category::where('name', $category)->first();
         return $data->articles->toJson();
+    }
+
+    public function getArticleWithPicturesByCategory($category) {
+        $data2 = Category::where('name', $category)->first();
+        $data = $data2->articles->toArray();
+        foreach ($data as $key => $value) {
+            $pictures = Picture::where('article_id', $value['id'])->get()->toArray();
+            $data[$key]['pictures'] = array();
+            foreach ($pictures as $picture) {
+                $data[$key]['pictures'][] = $picture['link'];
+            }
+        }
+        return json_encode($data);
     }
 
     public function getCategory() {
@@ -94,16 +129,19 @@ class ArticleController extends Controller {
     }
 
     public function insertPicture(Request $request) {
-        if ($request->hasFile('image')) {
-            $data = $request->all();
-            $picture = new Picture;
-            $picture->link = $data['image']->move('uploads/' . $data['user'] . '/' . $data['article_id'], uniqid() . $data['image']->getClientOriginalName());
-            if ($request->has('remark')) {
-                $picture->remark = $data['remark'];
+        $data = $request->all();
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            foreach ($images as $image) {
+                $picture = new Picture;
+                $picture->link = $image->move('uploads/' . $data['user'] . '/' . $data['id'], uniqid() . $image->getClientOriginalName());
+                if ($request->has('remark')) {
+                    $picture->remark = $data['remark'];
+                }
+                $picture->user_record = $data['user'];
+                $picture->article_id = $data['id'];
+                $picture->save();
             }
-            $picture->user_record = $data['user'];
-            $picture->article_id = $data['article_id'];
-            $picture->save();
             $json = array('success' => 'true');
             return json_encode($json);
         }
@@ -114,8 +152,7 @@ class ArticleController extends Controller {
     public function deletePicture(Request $request) {
         $data = $request->all();
         $picture = Picture::where('id', $data['id'])->first();
-        $picture->status = "Deleted";
-        $picture->save();
+        $picture->delete();
         $json = array('success' => 'true');
         return json_encode($json);
     }
