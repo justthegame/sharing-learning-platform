@@ -72,11 +72,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             <!-- Social Login -->
                                             <div class="social_login">
                                                 <div class="">
-                                                    <a href="#" class="social_box fb">
-                                                        <span class="icon"><i class="fa fa-facebook"></i></span>
-                                                        <span class="icon_title">Connect with Facebook</span>
+                                                    <div id="fb-root">
+                                                        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
 
-                                                    </a>
+                                                        </div>
+                                                    </div>
 
                                                     <a href="#" class="social_box google">
                                                         <span class="icon"><i class="fa fa-google-plus"></i></span>
@@ -222,38 +222,72 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </div>
 
                                     <script type="text/javascript">
-                                                $("#modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+                                        (function (d, s, id) {
+                                            var js, fjs = d.getElementsByTagName(s)[0];
+                                            if (d.getElementById(id))
+                                                    return;
+                                            js = d.createElement(s);
+                                            js.id = id;
+                                            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=1764813267088197';
+                                            fjs.parentNode.insertBefore(js, fjs);
+                                        }(document, 'script', 'facebook-jssdk'));
+                                        
+                                        window.fbAsyncInit = function () {
+                                            FB.init({
+                                            appId: '375762162847338',
+                                                    cookie: true,
+                                                    xfbml: true,
+                                                    version: 'v2.11'
+                                            });
+                                            FB.AppEvents.logPageView();
+                                            FB.getLoginStatus(function (response) {
+                                                statusChangeCallback(response);
+                                            });
+                                        };
+                                        
+                                        (function (d, s, id) {
+                                            var js, fjs = d.getElementsByTagName(s)[0];
+                                            if (d.getElementById(id)) {
+                                                return;
+                                            }
+                                            js = d.createElement(s);
+                                            js.id = id;
+                                            js.src = "https://connect.facebook.net/en_US/sdk.js";
+                                            fjs.parentNode.insertBefore(js, fjs);
+                                        }(document, 'script', 'facebook-jssdk'));
+                                        
+                                        $("#modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
                                         $(function () {
-                                        // Calling Login Form
-                                        $("#login_form").click(function () {
-                                        $(".social_login").hide();
-                                        $(".user_login").show();
-                                        return false;
-                                        });
-                                        // Calling Register Form
-                                        $("#register_form").click(function () {
-                                        $(".social_login").hide();
-                                        $(".user_register").show();
-                                        $(".header_title").text('Register');
-                                        return false;
-                                        });
-                                        $("#submitregisterform").click(function (e) {
-                                        e.preventDefault();
-                                        $("#registerform").submit();
-                                        })
+                                            // Calling Login Form
+                                            $("#login_form").click(function () {
+                                                $(".social_login").hide();
+                                                $(".user_login").show();
+                                                return false;
+                                            });
+                                            // Calling Register Form
+                                            $("#register_form").click(function () {
+                                                $(".social_login").hide();
+                                                $(".user_register").show();
+                                                $(".header_title").text('Register');
+                                                return false;
+                                            });
+                                            $("#submitregisterform").click(function (e) {
+                                                e.preventDefault();
+                                                $("#registerform").submit();
+                                            });
 
-                                                $("#submitloginform").click(function (e) {
-                                        e.preventDefault();
-                                        $("#loginform").submit();
-                                        })
-                                                // Going back to Social Forms
-                                                $(".back_btn").click(function () {
-                                        $(".user_login").hide();
-                                        $(".user_register").hide();
-                                        $(".social_login").show();
-                                        $(".header_title").text('Login');
-                                        return false;
-                                        });
+                                            $("#submitloginform").click(function (e) {
+                                                e.preventDefault();
+                                                $("#loginform").submit();
+                                            });
+                                            // Going back to Social Forms
+                                            $(".back_btn").click(function () {
+                                                $(".user_login").hide();
+                                                $(".user_register").hide();
+                                                $(".social_login").show();
+                                                $(".header_title").text('Login');
+                                                return false;
+                                            });
                                         })
                                     </script></li>
                                 @endif
@@ -267,8 +301,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="signup">
                                 <h3>Subscribe</h3>
                                 <h4>Enter Your Valid E-mail</h4>
-                                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {
-                                    this.value = ''; }" />
+                                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') { this.value = ''; }" />
                                 <div class="clearfix"></div>
                                 <input type="submit"  value="Subscribe Now"/>
                             </div>
