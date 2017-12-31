@@ -20,6 +20,7 @@
             </tr>
         <thead>
         <tbody>
+            @if (count($articles)> 0)
             @foreach($articles as $article)
             <tr>
                 <th scope="row">{{$article['id']}}</th>
@@ -49,6 +50,7 @@
                 </td>
             </tr>
             @endforeach
+            @endif
         </tbody>
     </table>
 </div>
@@ -58,7 +60,7 @@
     <div class="panel-heading">New Article</div>
 
     <div class="panel-body content-form">
-        <form method="POST" enctype="multipart/form-data" id="formArticleInsert">
+        <form method="POST" enctype="multipart/form-data" action="{{url('/article/insert')}}" id="formArticleInsert">
             {{ csrf_field() }}
             <input type="hidden" name="user" value="{{Auth::id()}}">
             <input type="hidden" name="id" id='article_id'>
@@ -70,9 +72,11 @@
             <div class="form-group">
                 <label for="">Category</label>
                 <select class="form-control" name='category_id' id='txtCategory'>
+                    @if (count($categories)> 0)
                     @foreach($categories as $cat)
                     <option value="{{$cat['id']}}">{{$cat['name']}}</option>
                     @endforeach
+                    @endif
                 </select>
             </div>
             <div class="form-group">
@@ -145,32 +149,32 @@
             }
             $('#formArticleInsert').submit();
         });
-        jQuery('#formArticleInsert').submit(function (e) {
-            e.preventDefault();
-            var fd = new FormData(jQuery(this)[0]);
-            jQuery.ajax({
-                url: urltoupload,
-                type: 'POST',
-                contentType: false,
-                data: fd,
-                processData: false,
-                success: function (data) {
-                    if (has_new_img)
-                        jQuery.ajax({
-                            url: urluploadimg,
-                            type: 'POST',
-                            contentType: false,
-                            data: fd,
-                            processData: false,
-                            success: function (data) {
-                                location.reload();
-                                console.log(data);
-                            }
-                        });
-                    location.reload();
-                }
-            });
-        });
+        // jQuery('#formArticleInsert').submit(function (e) {
+        //     e.preventDefault();
+        //     var fd = new FormData(jQuery(this)[0]);
+        //     jQuery.ajax({
+        //         url: urltoupload,
+        //         type: 'POST',
+        //         contentType: false,
+        //         data: fd,
+        //         processData: false,
+        //         success: function (data) {
+        //             if (has_new_img)
+        //                 jQuery.ajax({
+        //                     url: urluploadimg,
+        //                     type: 'POST',
+        //                     contentType: false,
+        //                     data: fd,
+        //                     processData: false,
+        //                     success: function (data) {
+        //                         location.reload();
+        //                         console.log(data);
+        //                     }
+        //                 });
+        //             location.reload();
+        //         }
+        //     });
+        // });
     });
 </script>
 @endsection

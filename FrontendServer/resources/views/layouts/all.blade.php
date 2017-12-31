@@ -337,9 +337,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <span class="menu"></span>
                 <div class="menu-strip">
                     <ul>
+                        @if (count($categoriesForHeader)>0)
                         @foreach($categoriesForHeader as $category)
                         <li><a href="{{ route('news', ['category' => $category['name']]) }}">{{$category['name']}}</a></li>
                         @endforeach
+                        @endif
                     </ul>
                 </div>
                 <!-- script for menu -->
@@ -357,10 +359,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="footer text-center">
                     <div class="bottom-menu">
                         <ul>
-                            |
+                            |@if (count($categoriesForHeader)>0)
                             @foreach($categoriesForHeader as $category)
                             <li><a href="{{ route('news', ['category' => $category['name']]) }}">{{$category['name']}}</a></li> |
                             @endforeach
+                            @endif
                         </ul>
                     </div>
                     <div class="copyright text-center">
