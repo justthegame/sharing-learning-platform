@@ -60,7 +60,7 @@
     <div class="panel-heading">New Conversation</div>
 
     <div class="panel-body content-form">
-        <form method="POST" enctype="multipart/form-data" id="formConversationInsert">
+        <form method="POST" enctype="multipart/form-data" id="formConversationInsert" action="{{url('/conversation/insert')}}">
             {{ csrf_field() }}
             <input type="hidden" name="user" value="{{Auth::id()}}">
             <input type="hidden" name="id" id='conversation_id'>
@@ -75,7 +75,7 @@
             </div>
             <div class="form-group">
                 <label for="">Category</label>
-                <select class="form-control" name='category' id='txtCategory'>
+                <select class="form-control" name='category_id' id='txtCategory'>
                     @foreach($categories as $cat)
                     <option value="{{$cat['id']}}">{{$cat['name']}}</option>
                     @endforeach
@@ -123,31 +123,31 @@
         }
     };
     $(document).ready(function () {
-        var idFile = 0;
-        var urltoupload = "{{ config('app.conversationServer') . 'keyword/insert'}}";
-        var has_new_img = false;
-        $('#btnSubmitForm').on('click', function () {
-            if ($('#conversation_id').val() != '') {
-                urltoupload = "{{ config('app.conversationServer') . 'keyword/edit'}}";
-                if ($('.img-multi').val() != '')
-                    has_new_img = true;
-            }
-            $('#formConversationInsert').submit();
-        });
-        jQuery('#formConversationInsert').submit(function (e) {
-            e.preventDefault();
-            var fd = new FormData(jQuery(this)[0]);
-            jQuery.ajax({
-                url: urltoupload,
-                type: 'POST',
-                contentType: false,
-                data: fd,
-                processData: false,
-                success: function (data) {
-                    location.reload();
-                }
-            });
-        });
+//        var idFile = 0;
+//        var urltoupload = "{{ config('app.conversationServer') . 'keyword/insert'}}";
+//        var has_new_img = false;
+//        $('#btnSubmitForm').on('click', function () {
+//            if ($('#conversation_id').val() != '') {
+//                urltoupload = "{{ config('app.conversationServer') . 'keyword/edit'}}";
+//                if ($('.img-multi').val() != '')
+//                    has_new_img = true;
+//            }
+//            $('#formConversationInsert').submit();
+//        });
+//        jQuery('#formConversationInsert').submit(function (e) {
+//            e.preventDefault();
+//            var fd = new FormData(jQuery(this)[0]);
+//            jQuery.ajax({
+//                url: urltoupload,
+//                type: 'POST',
+//                contentType: false,
+//                data: fd,
+//                processData: false,
+//                success: function (data) {
+//                    location.reload();
+//                }
+//            });
+//        });
     });
 </script>
 @endsection
