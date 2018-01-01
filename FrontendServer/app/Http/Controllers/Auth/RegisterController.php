@@ -70,7 +70,6 @@ use RegistersUsers;
         $pubKey1 = openssl_pkey_get_details($res);
         $pubKey = base64_encode($pubKey1["key"]);
         $privKey = base64_encode($privKey);
-        echo $pubKey.' '.$privKey; exit;
 
         $nextId = DB::table('users')->max('id') + 1;
 
