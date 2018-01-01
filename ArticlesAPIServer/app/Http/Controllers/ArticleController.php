@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Article;
 use App\Picture;
 use App\Category;
+use App\User;
 
 class ArticleController extends Controller {
 
@@ -79,6 +80,23 @@ class ArticleController extends Controller {
         // get public key
         // decrypt
         $data = $request->all();
+        
+        //cek signature
+        $post = [
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'user' => $data['user'],
+            'category_id' => $data['category_id']
+        ];
+        $payload = json_encode($post);
+        $secret = User::find($data['user'])->first()->secret;
+        $signature = sha1($payload . $secret);
+        if ($signature != $data['signature']) {
+            $json = array('success' => 'false');
+            return json_encode($json);
+        }
+        
+        //insert
         $article = new Article;
         $article->title = $data['title'];
         $article->content = $data['content'];

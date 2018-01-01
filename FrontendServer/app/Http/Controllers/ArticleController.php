@@ -46,7 +46,7 @@ class ArticleController extends Controller {
         return view('article', ['categories' => $categories, 'articles' => $articles]);
     }
 
-    public function insertArticle(Request $request){
+    public function insertArticle(Request $request) {
         $url = config('app.articlesServer');
 
         $ch = curl_init();
@@ -54,23 +54,32 @@ class ArticleController extends Controller {
         $privKey = auth()->user()->privateKey;
         $pubKey = auth()->user()->publicKey;
 
+//        $post = [
+//            'title' => $data['title'],
+//            'content' => $data['content'],
+//            'user' => $data['user'],
+//            'category_id' => $data['category_id'],
+//        ];
         $post = [
             'title' => $data['title'],
             'content' => $data['content'],
-            'user'   => $data['user'],
-            'category_id'   => $data['category_id'],
+            'user' => $data['user'],
+            'category_id' => $data['category_id'],
         ];
-        
+
+        $payload = json_encode($post);
+        openssl_private_encrypt($payload, $encrypted, $privKey);
         // without serialization
-        if (isset($data['images'])){
-            if (count($data['images'])>0){
-            foreach($data['images'] as $index=>$image){
-                $path = $image->move('uploads/tmp', uniqid() . $image->getClientOriginalName());
-                $post['images['.$index.']'] = new \CURLFile(realpath($path));
-                }    
+        if (isset($data['images'])) {
+            if (count($data['images']) > 0) {
+                foreach ($data['images'] as $index => $image) {
+                    $path = $image->move('uploads/tmp', uniqid() . $image->getClientOriginalName());
+                    $postImage['images[' . $index . ']'] = new \CURLFile(realpath($path));
+                }
             }
         }
-        
+        $postImage['payload'] = $encrypted;
+
 
         // file with serialization
         // if (count($data['images']) > 0){
@@ -81,21 +90,25 @@ class ArticleController extends Controller {
         // }
 
         $test = json_encode($post);
+//        
+//        $secret = auth()->user()->secret;
+//        
+//        $post['signature'] = sha1($payload.$secret);
 
-        curl_setopt($ch, CURLOPT_URL,$url.'article/insert');
+        curl_setopt($ch, CURLOPT_URL, $url . 'article/insert');
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postImage);
 
         // in real life you should use something like:
         // curl_setopt($ch, CURLOPT_POSTFIELDS, 
         //          http_build_query(array('postvar1' => 'value1')));
-
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $server_output = curl_exec ($ch);
+        $server_output = curl_exec($ch);
 
-        curl_close ($ch);
+        dd($server_output);
+        curl_close($ch);
 
         return redirect('showArticle');
     }
