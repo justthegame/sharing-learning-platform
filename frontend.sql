@@ -1,0 +1,128 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 01, 2018 at 06:17 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `frontend`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `privateKey` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `publicKey` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `is_admin`, `privateKey`, `publicKey`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin@admin.com', '$2y$10$EHzs9xMXB8oHzpHCyGQ1B.N1d8LEwmc0F01DuEcKKgi5AXXvWUI8a', 'Admin', 1, 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUJDd0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNCOWpDQjh3SUJBQUl4QU1Da1VCYXkrZlpPbWhKeTl0cmIKR201Z0Zvb1BxUmd1U1BEc25PalF3clpaOENJT1RxRmZ1azZ6UER2cnFOdkdMd0lEQVFBQkFqQW9haEJYUXNNSAo5bU9DWFZZR2doTGdkdzRqZHJlZDJBK2RhZ1FFQklYcGNzaVliQkZVTGQxYVJ5MEpybVZJd0prQ0dRRDlFdlB5CjI2U1hrR0xFcTZsOGJoS0g4eHFDeFl0MGh1MENHUURDM240NmN1QVVtNnhBTWpobTBQZmJPTitnWlR4WW9nc0MKR0JyMkYvTTVuekZlZW9kRldvc2RGdkJRMy9RcW80N0lpUUlaQUlrc1A2VDdPbHVuWGJCdTZaOE9tSHJiNVNjdQpQRFdVRXdJWkFKU1J4OVRuRkJhckM2bldBTldxVzB4SThaN3UwL3J6WHc9PQotLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tCg==', 'LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUV3d0RRWUpLb1pJaHZjTkFRRUJCUUFET3dBd09BSXhBTUNrVUJheStmWk9taEp5OXRyYkdtNWdGb29QcVJndQpTUERzbk9qUXdyWlo4Q0lPVHFGZnVrNnpQRHZycU52R0x3SURBUUFCCi0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=', '4DwYouevzRn7zJdyxYfrNjuMDbjzrRFvUOkl5L8Unsa2UXDYGvWJIhZEXwrv', '2017-12-27 23:20:42', '2017-12-27 23:20:42'),
+(2, 'coc6124003@gmail.com', '$2y$10$CblWL1dmhGdkPcUop2hFseTHa1FaDulPlAN3uZqumv1LcTuEaGr.u', 'Denny', 0, 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUJDZ0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNCOVRDQjhnSUJBQUl4QUt6a1BSOEZXUVhlVERDUmpvem0KTlhlSU5wT3Qvb2dhMnc1Ri8zenlzUHpJVnJyZjd5VVNUTmJWdTRuc2Z5TGxnd0lEQVFBQkFqQlZ4T1NOZnhtcQp6NXo4ZXprOHJQZlpWTG0raVpLNzhwWG9kUkM3MUl5UmtZcHpOb2pGa2Y0SWdTUnRwbGkwd0FFQ0dRRGQraXlxClVBR2lPN0dOMHpTYWhmTDdDZ2gwcG1VeWd5RUNHUURIWkJEdERQTVZ4dUdjYVh3VmJKTVpTRkoyY3ViVCtDTUMKR1FDK3NPZ2w5MDB2L1cvdWtuNGlNT2duMk5xaXV6ODhRWUVDR0hsanIzWlNLdS80RzhTWTU4VTNTN3Jaci9LUwo4M3JiRndJWVdreDkzODhrYjkwYm5wZVo5Qk5nSXBPbnAvWnFzY3BtCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K', 'LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUV3d0RRWUpLb1pJaHZjTkFRRUJCUUFET3dBd09BSXhBS3prUFI4RldRWGVURENSam96bU5YZUlOcE90L29nYQoydzVGLzN6eXNQeklWcnJmN3lVU1ROYlZ1NG5zZnlMbGd3SURBUUFCCi0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=', 'LDxrO8jLYDjACtZftlMTqty45OcPvlcfSDJy3dpRC1iixjUT6U2abEPASLgX', '2017-12-27 23:21:03', '2017-12-27 23:21:03'),
+(3, 'gamelemah@gmail.com', '$2y$10$Hz/12B1ikM0ttALllW0VM.ouwEfIfbGbZs.vVZoAjSPODtv4sk75K', 'gamelemah', 0, 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUJDd0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNCOWpDQjh3SUJBQUl4QUszWUdVWW96cWZEOGM2YTNSTk4KWXFLajJNZW5pRmlTRFRLdDZQMUdBVkJ6eGxud1hQdm80MFJiSGRmY3pFa0ExUUlEQVFBQkFqQlZpMFg4a1M0SAp2ZExxUUtoU3pEeWlIWkFaeHVXLzk3VzR6aUdQSWxuU2tFd1VhWUhiT0xyUElwM2phczJENEFFQ0dRRGhUUFdSCkdUYW8vOXdjYnlyRjg3U1hGb2RUa2RqVUdBRUNHUURGaURYaEd4YjNDbUVKeGtYQndOWmZmbUxTbnlzUkNOVUMKR0YrL29TMUZGZUhFdXZxcWsvY0VsMThPaC95UUl5SWdBUUlaQUtRQTlLTWl4ODF5MjZDdTgwbnNIdEVJY1dwbwpadXhzeFFJWkFJbWlrQ2J3Y01LU2hWeWNONk5mZlBKVnZuc0tiQm9zTEE9PQotLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tCg==', 'LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUV3d0RRWUpLb1pJaHZjTkFRRUJCUUFET3dBd09BSXhBSzNZR1VZb3pxZkQ4YzZhM1JOTllxS2oyTWVuaUZpUwpEVEt0NlAxR0FWQnp4bG53WFB2bzQwUmJIZGZjekVrQTFRSURBUUFCCi0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=', 'FQ8c4X7YDJUUcL8DD9qLW2Gb8ni55NQE9HokR97a2ZGUVwoApYaIlXGGfqla', '2017-12-28 01:35:13', '2017-12-28 01:35:13'),
+(4, 'peter@gmail.com', '$2y$10$uBxMAQdGkgPeyXbs/YyXyOrmZlZKXH/wZP1F6AxHnyYNw4SALZynW', 'peter', 0, 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUJWUUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQVQ4d2dnRTdBZ0VBQWtFQXF3alh2dWpwaTdoTWp3MEcKQ1N4UHdCQW0xcUtsSXlGcFZqZWVQb2JhbVBjclpDR051NGY2SmNCaE5PTmtXMmozTjBLdlh0ZHRYN01CN2xxQQo2ajA5eVFJREFRQUJBa0JwdjlEdGlFTUdrWkE4anBmaHloVVJNcXRnNERWc2tEYjZDTzk5eDVHWEs1RFQ5QzkrCnJqc2N6ODBGNHhMV05ZSXAxN1BSbWdZNE9LaVpkckhsV2FPQkFpRUEzc1JwV3hpNWdOd2xON2llTmxvRW1WU0cKbFU2RFFsc2FROHdMUDRaRFU3a0NJUURFakx3V01DckZRZnN0LzQwNmlCdlg1MXcxR0dqK0NtV25Dc0ZiZTM1aQprUUloQUk3aHBiMnpQeEJDbzNCNDdxbG4xWGxQT0w4OVMzMWRGNXlTbkVoVFlvMnBBaUVBanNuYkhwZHhpd3FMCkt2aWJwaWtaYVRsNFFFNXlnQlFYazBuNS9MYnpzekVDSUFMRzVkUVRJK1hESzNnMDR4VFdvaWdBL1RWMHV3bXAKZHkxbjFXUkl2OVM0Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K', 'LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUZ3d0RRWUpLb1pJaHZjTkFRRUJCUUFEU3dBd1NBSkJBS3NJMTc3bzZZdTRUSThOQmdrc1Q4QVFKdGFpcFNNaAphVlkzbmo2RzJwajNLMlFoamJ1SCtpWEFZVFRqWkZ0bzl6ZENyMTdYYlYrekFlNWFnT285UGNrQ0F3RUFBUT09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=', NULL, '2017-12-30 01:57:26', '2017-12-30 01:57:26');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

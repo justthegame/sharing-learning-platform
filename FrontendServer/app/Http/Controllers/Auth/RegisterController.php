@@ -97,6 +97,8 @@ use RegistersUsers;
             print_r($result);
             exit;
         }
+
+        return redirect('/');
     }
 
 }
