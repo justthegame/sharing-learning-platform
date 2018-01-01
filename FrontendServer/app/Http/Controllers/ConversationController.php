@@ -59,7 +59,7 @@ class ConversationController extends Controller {
                 'chinese_text' => $data['chinese_text'],
                 'user' => $data['user'],
                 'category_id' => $data['category_id'],
-                'status' => 'In Review',
+                'status' => $data['status'],
             ];
             $url = config('app.conversationServer') . 'keyword/edit';
         }else{

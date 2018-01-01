@@ -147,6 +147,10 @@ class ArticleController extends Controller {
 
     public function insertPicture(Request $request) {
         $data = $request->all();
+        $payload = $this->decryptData($data);
+        foreach ($payload as $key => $value) {
+            $data[$key] = $payload[$key];
+        }
         if ($request->hasFile('images')) {
             $images = $request->file('images');
             foreach ($images as $image) {
@@ -168,6 +172,10 @@ class ArticleController extends Controller {
 
     public function deletePicture(Request $request) {
         $data = $request->all();
+        $payload = $this->decryptData($data);
+        foreach ($payload as $key => $value) {
+            $data[$key] = $payload[$key];
+        }
         $picture = Picture::where('id', $data['id'])->first();
         $picture->delete();
         $json = array('success' => 'true');

@@ -43,7 +43,7 @@
                     <form method="post" action="{{url('/conversation/delete')}}">
                         {{ csrf_field() }}
                         <input type="hidden" name="id" value="{{$conversation['id']}}">
-                        <button type="submit"><span class="fa fa-trash-o"></span></button>
+                        <button type="submit" onclick="return confirm('Do you want to delete this conversation?')")><span class="fa fa-trash-o"></span></button>
                     </form>
                     @if(Auth::user()->is_admin)
                     <button type="button" data-id="{{$conversation['id']}}" data-indonesian="{{$conversation['indonesian_text']}}"
