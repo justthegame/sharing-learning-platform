@@ -76,6 +76,8 @@ class ArticleController extends Controller {
     }
 
     public function insertArticle(Request $request) {
+        // get public key
+        // decrypt
         $data = $request->all();
         $article = new Article;
         $article->title = $data['title'];
@@ -87,6 +89,7 @@ class ArticleController extends Controller {
         $article->status = "In Review";
         $article->category_id = $data['category_id'];
         $article->save();
+
         if ($request->hasFile('images')) {
             $images = $request->file('images');
             foreach ($images as $image) {

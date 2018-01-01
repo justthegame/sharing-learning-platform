@@ -61,7 +61,7 @@ use RegistersUsers;
     protected function create(array $data) {
         $config = array(
             "digest_alg" => "sha512",
-            "private_key_bits" => 384,
+            "private_key_bits" => 1024,
             "private_key_type" => OPENSSL_KEYTYPE_RSA,
         );
         $privKey = null;
@@ -74,6 +74,7 @@ use RegistersUsers;
         $nextId = DB::table('users')->max('id') + 1;
 
         $url = config('app.publickeyServer') . 'key/' . $nextId . '/' . $pubKey;
+        
         $cSession = curl_init();
         curl_setopt($cSession, CURLOPT_URL, $url);
         curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
@@ -82,6 +83,7 @@ use RegistersUsers;
         $result_json = curl_exec($cSession);
         $result = json_decode((string) $result_json, true);
         curl_close($cSession);
+
         if ($result['success']) {
             return User::create([
                         'id' => $nextId,

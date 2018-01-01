@@ -1,12 +1,20 @@
 <?php
 
 return [
-    'publickeyServer' => 'http://140.118.109.62/sharing-learning-platform/PublicKeyAPIServer/public/api/',
-    'articlesServer' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/api/',
-    'conversationServer' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/api/',
+    // 'publickeyServer' => 'http://140.118.109.62/sharing-learning-platform/PublicKeyAPIServer/public/api/',
+    // 'articlesServer' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/api/',
+    // 'conversationServer' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/api/',
 
-    'articlesResource' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/',
-    'conversationResource' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/',
+    // 'articlesResource' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/',
+    // 'conversationResource' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/',
+
+    'publickeyServer' => 'http://localhost/sharing-learning-platform/PublicKeyAPIServer/public/api/',
+    'articlesServer' => 'http://localhost/sharing-learning-platform/ArticlesAPIServer/public/api/',
+    'conversationServer' => 'http://localhost/sharing-learning-platform/ConversationAPIServer/public/api/',
+    'frontendServer' => 'http://localhost/sharing-learning-platform/FrontendServer/public/',
+
+    'articlesResource' => 'http://localhost/sharing-learning-platform/ArticlesAPIServer/public/',
+    'conversationResource' => 'http://localhost/sharing-learning-platform/ConversationAPIServer/public/',
     /*
     |--------------------------------------------------------------------------
     | Application Name
