@@ -20,7 +20,7 @@
                             @if (isset($article['pictures'][0]))
                             <img style="max-width: 150px; object-fit: scale-down;" class="blog" src="{{ config('app.articlesResource').$article['pictures'][0]['link']}}" alt="No Picture">
                             @else
-                            <img style="max-width: 150px; object-fit: scale-down;" class="blog" src="{{asset('../resources/lib/images/noimage.png')}}" alt="No Picture">
+                            <img style="max-width: 150px; object-fit: scale-down;" class="blog" src="{{asset('lib/images/noimage.png')}}" alt="No Picture">
                             @endif
                         </a>
                         <p>{{$article['content']}}</p>

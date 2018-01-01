@@ -8,12 +8,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
     <head>
         <title>Sharing Learning Platform</title>
-        <link href="{{asset('../resources/lib/css/bootstrap.css')}}" rel='stylesheet' type='text/css' />
+        <link href="{{asset('lib/css/bootstrap.css')}}" rel='stylesheet' type='text/css' />
         <!-- Custom Theme files -->
-        <link href="{{asset('../resources/lib/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{asset('lib/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
         <!-- Custom Theme files -->
-        <script src="{{asset('../resources/lib/js/jquery.min.js')}}"></script>
-        <script type="text/javascript" src="{{asset('../resources/lib/js//jquery.leanModal.min.js')}}"></script>
+        <script src="{{asset('lib/js/jquery.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('lib/js//jquery.leanModal.min.js')}}"></script>
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
         <!-- Custom Theme files -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -294,8 +294,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </ul>
                         </div>
                         <!---pop-up-box---->  
-                        <link href="{{asset('../resources/lib/css/popuo-box.css')}}" rel="stylesheet" type="text/css" media="all"/>
-                        <script src="{{asset('../resources/lib/js/jquery.magnific-popup.js')}}" type="text/javascript"></script>
+                        <link href="{{asset('lib/css/popuo-box.css')}}" rel="stylesheet" type="text/css" media="all"/>
+                        <script src="{{asset('lib/js/jquery.magnific-popup.js')}}" type="text/javascript"></script>
                         <!---//pop-up-box---->
                         <div id="small-dialog1" class="mfp-hide">
                             <div class="signup">

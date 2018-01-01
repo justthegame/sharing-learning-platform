@@ -16,7 +16,7 @@
             @if (isset($article['pictures'][0]))
             <img style="max-width: 180px; object-fit: scale-down;" src="{{ config('app.articlesResource').$article['pictures'][0]['link']}}" alt="No Picture">
             @else
-            <img style="max-width: 180px;" src="{{asset('../resources/lib/images/noimage.png')}}" alt="No Picture">
+            <img style="max-width: 180px;" src="{{asset('lib/images/noimage.png')}}" alt="No Picture">
             @endif
         </a>
     </div>
@@ -110,7 +110,7 @@
 
 @section("slider-content")
 <div class="slider">
-    <script src="{{asset('../resources/lib/js/responsiveslides.min.js')}}"></script>
+    <script src="{{asset('lib/js/responsiveslides.min.js')}}"></script>
     <script>
         // You can also use "$(window).load(function() {"
         $(function () {
@@ -133,7 +133,7 @@
                     @if (isset($slider['pictures'][0]['link']))
                     <img style="height: 300px; object-fit: contain;" src="{{ config('app.articlesResource').$slider['pictures'][0]['link']}}" alt="">
                     @else
-                    <img style="height: 300px;" src="{{asset('../resources/lib/images/noimage.png')}}" alt="">
+                    <img style="height: 300px;" src="{{asset('lib/images/noimage.png')}}" alt="">
                     @endif
                 </a>
             </li>
@@ -146,7 +146,7 @@
             @if (isset($slider['pictures'][0]['link']))
             <li><a href="#" id="slider_{{$slider['id']}}"><img src="{{ config('app.articlesResource').$slider['pictures'][0]['link']}}" alt=""></a></li>
             @else
-            <li><a href="#" id="slider_{{$slider['id']}}"><img src="{{asset('../resources/lib/images/noimage.png')}}" alt=""></a></li>
+            <li><a href="#" id="slider_{{$slider['id']}}"><img src="{{asset('lib/images/noimage.png')}}" alt=""></a></li>
             @endif
             <input type="hidden" value="{{$slider['title']}}" id='hidSlider_{{$slider["id"]}}'>
             @endforeach
