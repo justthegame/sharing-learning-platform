@@ -80,22 +80,11 @@ class ArticleController extends Controller {
         // get public key
         // decrypt
         $data = $request->all();
-        
-        //cek signature
-        $post = [
-            'title' => $data['title'],
-            'content' => $data['content'],
-            'user' => $data['user'],
-            'category_id' => $data['category_id']
-        ];
-        $payload = json_encode($post);
-        $secret = User::find($data['user'])->first()->secret;
-        $signature = sha1($payload . $secret);
-        if ($signature != $data['signature']) {
-            $json = array('success' => 'false');
-            return json_encode($json);
+        $payload = $this->decryptData($data);
+        foreach ($payload as $key => $value) {
+            $data[$key] = $payload[$key];
         }
-        
+
         //insert
         $article = new Article;
         $article->title = $data['title'];
@@ -124,6 +113,11 @@ class ArticleController extends Controller {
 
     public function editArticle(Request $request) {
         $data = $request->all();
+        $payload = $this->decryptData($data);
+        foreach ($payload as $key => $value) {
+            $data[$key] = $payload[$key];
+        }
+
         $article = Article::where('id', $data['id'])->first();
         $article->title = $data['title'];
         $article->content = $data['content'];
@@ -174,6 +168,25 @@ class ArticleController extends Controller {
         $picture->delete();
         $json = array('success' => 'true');
         return json_encode($json);
+    }
+
+    protected function decryptData($data){
+        $url = config('app.publickeyServer').'getKey/'.$data['user'];
+        $cSession = curl_init();
+        curl_setopt($cSession, CURLOPT_URL, $url);
+        curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cSession, CURLOPT_HEADER, false);
+        $result_json = curl_exec($cSession);
+        $json_key = json_decode((string) $result_json, true);
+        curl_close($cSession);
+        $pubkey = base64_decode($json_key['publicKey']);
+
+        $encrypted = base64_decode($data['payload']);
+        // openssl_private_decrypt($encrypted, $decrypted_user, $privkey);
+        openssl_public_decrypt($encrypted, $decrypted, $pubkey);
+        $payload = json_decode((string) $decrypted, true);
+        
+        return $payload;
     }
 
 }
