@@ -1,20 +1,20 @@
 <?php
 
 return [
-    // 'publickeyServer' => 'http://140.118.109.62/sharing-learning-platform/PublicKeyAPIServer/public/api/',
-    // 'articlesServer' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/api/',
-    // 'conversationServer' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/api/',
+    'publickeyServer' => 'http://140.118.109.62/sharing-learning-platform/PublicKeyAPIServer/public/api/',
+    'articlesServer' => 'http://api-article.id-tw.tk/api/',
+    'conversationServer' => 'http://api-conversation.id-tw.tk/api/',
 
-    // 'articlesResource' => 'http://140.118.109.62/sharing-learning-platform/ArticlesAPIServer/public/',
-    // 'conversationResource' => 'http://140.118.109.62/sharing-learning-platform/ConversationAPIServer/public/',
+    'articlesResource' => 'http://api-article.id-tw.tk/',
+    'conversationResource' => 'http://api-conversation.id-tw.tk/',
 
-    'publickeyServer' => 'http://localhost/sharing-learning-platform/PublicKeyAPIServer/public/api/',
-    'articlesServer' => 'http://localhost/sharing-learning-platform/ArticlesAPIServer/public/api/',
-    'conversationServer' => 'http://localhost/sharing-learning-platform/ConversationAPIServer/public/api/',
-    'frontendServer' => 'http://localhost/sharing-learning-platform/FrontendServer/public/',
+    // 'publickeyServer' => 'http://localhost/sharing-learning-platform/PublicKeyAPIServer/public/api/',
+    // 'articlesServer' => 'http://localhost/sharing-learning-platform/ArticlesAPIServer/public/api/',
+    // 'conversationServer' => 'http://localhost/sharing-learning-platform/ConversationAPIServer/public/api/',
+    'frontendServer' => 'https://id-tw.tk/',
 
-    'articlesResource' => 'http://localhost/sharing-learning-platform/ArticlesAPIServer/public/',
-    'conversationResource' => 'http://localhost/sharing-learning-platform/ConversationAPIServer/public/',
+    // 'articlesResource' => 'http://localhost/sharing-learning-platform/ArticlesAPIServer/public/',
+    // 'conversationResource' => 'http://localhost/sharing-learning-platform/ConversationAPIServer/public/',
     /*
     |--------------------------------------------------------------------------
     | Application Name
