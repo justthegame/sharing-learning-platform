@@ -24,3 +24,4 @@ Route::any('/news/{category}', 'HomeController@news')->name('news');
 Route::any('/showArticle', 'ArticleController@showArticle')->name('showArticle');
 Route::any('/showConversation', 'ConversationController@showConversation')->name('showConversation');
 Route::any('/article/insert','ArticleController@insertArticle');
+Route::any('/article/delete','ArticleController@deleteArticle');

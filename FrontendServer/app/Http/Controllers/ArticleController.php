@@ -176,4 +176,31 @@ class ArticleController extends Controller {
         return redirect('showArticle');
     }
 
+    public function deleteArticle(Request $request) {
+        $url = config('app.articlesServer');
+
+        $data = $request->all();
+        $privKey = auth()->user()->privateKey;
+        $pubKey = auth()->user()->publicKey;
+
+        $post = [
+            'id' => $data['id'],
+        ];
+
+        $payload = json_encode($post);
+        openssl_private_encrypt($payload, $encrypted, base64_decode($privKey));
+        $postdata['payload'] = base64_encode($encrypted);
+        $postdata['user'] = auth()->user()->id;
+        // dd($postdata);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url . 'article/delete');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+        curl_close($ch);
+        return redirect('showArticle');
+    }
+
 }

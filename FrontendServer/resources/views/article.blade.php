@@ -40,6 +40,11 @@
                             data-status="{{$article['status']}}" onclick="editArticle(this)">
                         <span class="fa fa-edit"></span>
                     </button>
+                    <form method="post" action="{{url('/article/delete')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{$article['id']}}">
+                        <button type="submit"><span class="fa fa-trash-o"></span></button>
+                    </form>
                     @if(Auth::user()->is_admin)
                     <button type="button" data-id="{{$article['id']}}" data-title="{{$article['title']}}"
                             data-category="{{$article['category_id']}}" data-content="{{$article['content']}}" 
