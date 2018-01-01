@@ -24,7 +24,7 @@
                     <img src="{{ config('app.articlesResource').$image['link']}}" alt="No Picture" style="max-height: 300px; object-fit: scale-down;">
                     @endforeach
                     @else
-                    <img src="{{asset('../resources/lib/images/noimage.png')}}" alt="No Picture">
+                    <img src="{{asset('lib/images/noimage.png')}}" alt="No Picture">
                     @endif
                     <p>{{ $article['content'] }}</p>
                     <div class="clearfix"> </div>

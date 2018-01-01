@@ -40,6 +40,11 @@
                             data-status="{{$conversation['status']}}" onclick="editConversation(this)">
                         <span class="fa fa-edit"></span>
                     </button>
+                    <form method="post" action="{{url('/conversation/delete')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{$conversation['id']}}">
+                        <button type="submit" onclick="return confirm('Do you want to delete this conversation?')")><span class="fa fa-trash-o"></span></button>
+                    </form>
                     @if(Auth::user()->is_admin)
                     <button type="button" data-id="{{$conversation['id']}}" data-indonesian="{{$conversation['indonesian_text']}}"
                             data-category="{{$conversation['category_id']}}" data-chinese="{{$conversation['chinese_text']}}" 
@@ -87,7 +92,7 @@
                     <input type='file' name='voice' class='img-multi form-control-file'>
                 </div>
             </div>
-            <button type='button' class="btn " id='btnSubmitForm'>submit</button>
+            <button type='submit' class="btn " id='btnSubmitForm'>submit</button>
         </form>
     </div>
 </div>
@@ -95,7 +100,6 @@
 @endsection
 @section('js-content')
 <script>
-    var deleteImgUrl = "{{ config('app.ConversationServer') . 'picture/delete'}}";
     window.editConversation = function (element) {
         var id_art = $(element).data('id');
         var content_art = $(element).data('content');
@@ -112,16 +116,16 @@
         $('#statuses').val(status_art);
     };
 
-    window.deleteImage = function (element) {
-        notin = $(element).data('id');
-        if (confirm("Do you want to delete this image ?") == true) {
-            $.post(deleteImgUrl, {id: notin}, function (data) {
+    // window.deleteImage = function (element) {
+    //     notin = $(element).data('id');
+    //     if (confirm("Do you want to delete this image ?") == true) {
+    //         $.post(deleteImgUrl, {id: notin}, function (data) {
 
-            }).done(function () {
-                location.reload();
-            });
-        }
-    };
+    //         }).done(function () {
+    //             location.reload();
+    //         });
+    //     }
+    // };
     $(document).ready(function () {
 //        var idFile = 0;
 //        var urltoupload = "{{ config('app.conversationServer') . 'keyword/insert'}}";

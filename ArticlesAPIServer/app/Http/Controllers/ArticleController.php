@@ -134,6 +134,10 @@ class ArticleController extends Controller {
 
     public function deleteArticle(Request $request) {
         $data = $request->all();
+        $payload = $this->decryptData($data);
+        foreach ($payload as $key => $value) {
+            $data[$key] = $payload[$key];
+        }
         $article = Article::where('id', $data['id'])->first();
         $article->status = "Deleted";
         $article->save();
@@ -143,6 +147,10 @@ class ArticleController extends Controller {
 
     public function insertPicture(Request $request) {
         $data = $request->all();
+        $payload = $this->decryptData($data);
+        foreach ($payload as $key => $value) {
+            $data[$key] = $payload[$key];
+        }
         if ($request->hasFile('images')) {
             $images = $request->file('images');
             foreach ($images as $image) {
@@ -164,6 +172,10 @@ class ArticleController extends Controller {
 
     public function deletePicture(Request $request) {
         $data = $request->all();
+        $payload = $this->decryptData($data);
+        foreach ($payload as $key => $value) {
+            $data[$key] = $payload[$key];
+        }
         $picture = Picture::where('id', $data['id'])->first();
         $picture->delete();
         $json = array('success' => 'true');
@@ -171,9 +183,9 @@ class ArticleController extends Controller {
     }
 
     protected function decryptData($data){
-        $url = config('app.publickeyServer').'getKey/'.$data['user'];
+        $url = config('app.publickeyServer');
         $cSession = curl_init();
-        curl_setopt($cSession, CURLOPT_URL, $url);
+        curl_setopt($cSession, CURLOPT_URL, $url.'getKey/'.$data['user']);
         curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($cSession, CURLOPT_HEADER, false);
         $result_json = curl_exec($cSession);

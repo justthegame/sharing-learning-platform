@@ -30,8 +30,13 @@
                 <td>{{$article['status']}}</td>
                 <td>
                 @foreach($article['pictures'] as $img)
-                <img src="{{ config('app.articlesResource').$img['link']}}" width='50' height="50">
-                    <button type="button" data-id="{{$img['id']}}" onclick="deleteImage(this)"><i class="fa fa-trash-o"></i></button>
+                    <!--<button type="button" data-id="{{$img['id']}}" onclick="deleteImage(this)"><i class="fa fa-trash-o"></i></button>-->
+                    <form method="post" action="{{url('/article/deletePicture')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{$img['id']}}">
+                        <img src="{{ config('app.articlesResource').$img['link']}}" width='50' height="50">
+                        <button type="submit" onclick="return confirm('Do you want to delete this image?')"><i class="fa fa-trash-o"></i></button>
+                    </form>
                 @endforeach
                 </td>
                 <td>
@@ -40,6 +45,11 @@
                             data-status="{{$article['status']}}" onclick="editArticle(this)">
                         <span class="fa fa-edit"></span>
                     </button>
+                    <form method="post" action="{{url('/article/delete')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{$article['id']}}">
+                        <button type="submit" onclick="return confirm('Do you want to delete this article?')"><span class="fa fa-trash-o"></span></button>
+                    </form>
                     @if(Auth::user()->is_admin)
                     <button type="button" data-id="{{$article['id']}}" data-title="{{$article['title']}}"
                             data-category="{{$article['category_id']}}" data-content="{{$article['content']}}" 

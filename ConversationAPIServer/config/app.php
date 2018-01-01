@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    'publickeyServer' => 'http://localhost/sharing-learning-platform/PublickeyAPIServer/public/index.php/api/',
     /*
     |--------------------------------------------------------------------------
     | Application Name

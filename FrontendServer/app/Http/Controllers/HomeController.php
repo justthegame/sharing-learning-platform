@@ -34,7 +34,7 @@ class HomeController extends Controller {
         $articles = json_decode((string) $result_json, true);
         $i = 3;
         foreach ($articles as $key => $article) {
-            if ($article['status'] == 'In Review') {
+            if ($article['status'] != 'Approved') {
                 $articles[$key] = array();
             } else {
                 $user = User::find($article['user_record']);
