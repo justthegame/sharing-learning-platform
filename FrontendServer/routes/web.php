@@ -25,4 +25,3 @@ Route::any('/showArticle', 'ArticleController@showArticle')->name('showArticle')
 Route::any('/showConversation', 'ConversationController@showConversation')->name('showConversation');
 Route::any('/article/insert','ArticleController@insertArticle');
 Route::any('/conversation/insert','ConversationController@insertConversation');
-Route::any('/article/delete','ArticleController@deleteArticle');
