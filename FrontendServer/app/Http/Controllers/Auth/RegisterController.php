@@ -92,7 +92,6 @@ use RegistersUsers;
                         'privateKey' => $privKey,
                         'publicKey' => $pubKey,
                         'password' => bcrypt($data['password']),
-                        'secret' => $secret,
             ]);
         } else {
             print_r($result);
